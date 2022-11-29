@@ -1,3 +1,22 @@
+# Overview
+![](http://url/to/img.png)
+![APE Version](dynamic_read_version pypi?)
+[![GitPOAP Badge](https://public-api.gitpoap.io/apeworx?)
+
+**Ape Framework** is an easy-to-use, beginner friendly Web3 development tool. 
+Users can compile, test, and interact with smart contracts all in one command line session.
+With our **modular plugin system**, Ape supports multiple contract languages and chains.
+
+Ape is built by [ApeWorX LTD](https://www.apeworx.io/).
+
+Join our [ApeWorX Discord server](https://discord.gg/apeworx) to stay up to date on new release, plugins and tutorials.
+
+# Documentation
+
+Read our [technical documenation](https://docs.apeworx.io/ape/stable/) to get a deeper understanding of our open source Framework.
+
+Our [academic platform](https://academy.apeworx.io/) will help you master Ape Framework with it tutorials and challenges.
+
 # Quick Start
 
 ## Prerequisite
@@ -42,56 +61,27 @@ pipx install eth-ape'[recommended-plugins]'
 
 ### via `pip`
 
-**Suggestion**: Create a virtual environment using `virtualenv` or `venv.`
+**Suggestion**: Create a virtual environment using [virtualenv](https://pypi.org/project/virtualenv/) or [venv](https://docs.python.org/3/library/venv.html), or [homebrew for MacOS](https://formulae.brew.sh/formula/virtualenv)  before you install Ape
 
-You may skip creating a virtual environment if you know you don\'t require one for your use case.
+###### Note:  we advise installing in a virtual environment to avoid interfering with OS-level site packages.
 
-- [virtualenv](https://pypi.org/project/virtualenv/)
-- [venv](https://docs.python.org/3/library/venv.html)
 
-**NOTE**: For MacOS users, we advise installing in a virtual environment to avoid interfering with OS-level site packages.
-
-### virtualenv via `homebrew`
-
-* (MacOS Option) Install via homebrew [brew](https://formulae.brew.sh/formula/virtualenv)
-
-First, create your virtual environment folder:
-
-```bash
-python3 -m venv <path/to/new/env>
-```
-
-Then, activate your virtual environment:
-
-```bash
-source <venv_folder>/bin/activate
-```
-
-You should see `(name_of_venv) DESKTOP_NAME:~/path:$`.
-
-To deactivate the virtual environment, do:
-
-```bash
-deactivate
-```
-
-Now that you have Python installed in your virtual environment, install the `eth-ape` Python package:
+**Install Ape** install via `eth-ape` python package:
 You can install the latest release via [pip](https://pypi.org/project/pip/):
 
 ```bash
-pip install -U pip
+pip install pip -U
 pip install eth-ape
 ```
 
-To install Ape and a list of common, recommended plugins at the same time, do:
+To install Ape and a list of common, **recommended plugins** at the same time, do:
 
 ```bash
 pip install eth-ape'[recommended-plugins]'
 ```
 
 ### via `docker`
-
-Please visit our [Dockerhub](https://hub.docker.com/repository/docker/apeworx/ape) for more details on using Ape with Docker.
+If prefer docker and would like to run it in a container. Please visit our [Dockerhub](https://hub.docker.com/repository/docker/apeworx/ape) for more details on using Ape with Docker.
 
 ```bash
 docker run \
@@ -110,37 +100,16 @@ sudo rm -rf **\~/.solcx**
 sudo rm -rf **\~/.vvm**
 ```
 
-## Environment Variables:
+## Ape Modular Plugin Sytem:
 
-Some plugins require environment variables to connect to their external systems, such project IDs or API keys.
-Follow instructions from individual plugin documentations, such as:
+One of the best feature of Ape is our modular plugin system. Our plugins is the way we want you to have most interoperable experience with Web Ecosystem.
 
-* [ape-alchemy](https://github.com/ApeWorX/ape-alchemy/blob/main/README.md#quick-usage)
-* [ape-infura](https://github.com/ApeWorX/ape-infura#readme)
+[Plugin list]()
 
-Generally, set environment variables by doing the following:
+### Quick Start 
 
-```bash
-# Used by the `ape-infura` plugin
-export WEB3_INFURA_PROJECT_ID=<YOUR_INFURA_PROJECT_ID>
-# Used by the `ape-alchemy` plugin
-export WEB3_ALCHEMY_API_KEY=<YOUR_ALCHEMY_KEY>
-```
-
-Place these in environment files, such as your `.bashrc` or `.zshrc`.
-
-## Quick Usage
-
-Use `-h` to list all the commands:
-
-```bash
-ape -h
-```
-
-### Projects
-
-When using Ape, you generally will work with a project.
-To quickly get started using ape, generate a project using the `ape init` command:
+After you installed Ape and you want to get started, you generally will work with a project and need the proper scaffolding. 
+To quickly get started using ape, generate a project using the `ape init`command:
 
 ```bash
 ape init
