@@ -17,8 +17,6 @@ Read our [technical documenation](https://docs.apeworx.io/ape/stable/) to get a 
 
 Our [academic platform](https://academy.apeworx.io/) will help you master Ape Framework with it tutorials and challenges.
 
-# Quick Start
-
 ## Prerequisite
 
 In the latest release, Ape requires:
