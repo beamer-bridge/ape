@@ -25,7 +25,6 @@ def test_init_success(ape_cli, runner):
 
     project_folder = Path.cwd()
     result = runner.invoke(ape_cli, ["init"], input="init_success")
-
     assert result.exit_code == 0, result.output
     for folder_name in ["contracts", "tests", "scripts"]:
         # Create target Directory
@@ -34,14 +33,18 @@ def test_init_success(ape_cli, runner):
 
     git_ignore_file = project_folder / ".gitignore"
     assert git_ignore_file.is_file()
+    assert ".env" in git_ignore_file.read_text()
+    assert "n.env" in git_ignore_file.read_text()
 
     config = project_folder / "ape-config.yaml"
     assert config.is_file()
+    breakpoint()
     assert "init_success" in config.read_text()
 
     result = runner.invoke(["rm", "-rf"])
 
-    assert project_folder.exists()
+    # assert that project folder is removed
+    assert not project_folder.exists()
 
 
 def test_fail_all_files_and_folders_exist():
