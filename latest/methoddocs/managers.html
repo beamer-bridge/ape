@@ -14,7 +14,8 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
@@ -66,7 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguides/installing_plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/projects.html">Developing Projects with Ape</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/compile.html">Compile</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguides/cache.html">Cache</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguides/data.html">Querying Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/developing_plugins.html">Developing Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/config.html">Configure Ape</a></li>
@@ -118,6 +119,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-ape.managers.compilers">Compilers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ape.managers.compilers.CompilerManager"><code class="docutils literal notranslate"><span class="pre">CompilerManager</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.compilers.CompilerManager.compile"><code class="docutils literal notranslate"><span class="pre">CompilerManager.compile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.managers.compilers.CompilerManager.enrich_error"><code class="docutils literal notranslate"><span class="pre">CompilerManager.enrich_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.compilers.CompilerManager.get_imports"><code class="docutils literal notranslate"><span class="pre">CompilerManager.get_imports()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.compilers.CompilerManager.get_references"><code class="docutils literal notranslate"><span class="pre">CompilerManager.get_references()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.compilers.CompilerManager.registered_compilers"><code class="docutils literal notranslate"><span class="pre">CompilerManager.registered_compilers</span></code></a></li>
@@ -138,6 +140,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.chain.AccountHistory.address"><code class="docutils literal notranslate"><span class="pre">AccountHistory.address</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.chain.AccountHistory.append"><code class="docutils literal notranslate"><span class="pre">AccountHistory.append()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.chain.AccountHistory.outgoing"><code class="docutils literal notranslate"><span class="pre">AccountHistory.outgoing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.managers.chain.AccountHistory.query"><code class="docutils literal notranslate"><span class="pre">AccountHistory.query()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.chain.AccountHistory.revert_to_block"><code class="docutils literal notranslate"><span class="pre">AccountHistory.revert_to_block()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.chain.AccountHistory.sessional"><code class="docutils literal notranslate"><span class="pre">AccountHistory.sessional</span></code></a></li>
 </ul>
@@ -315,6 +318,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.dependency.GithubDependency.branch"><code class="docutils literal notranslate"><span class="pre">GithubDependency.branch</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.dependency.GithubDependency.extract_manifest"><code class="docutils literal notranslate"><span class="pre">GithubDependency.extract_manifest()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.dependency.GithubDependency.github"><code class="docutils literal notranslate"><span class="pre">GithubDependency.github</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.dependency.GithubDependency.ref"><code class="docutils literal notranslate"><span class="pre">GithubDependency.ref</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.dependency.GithubDependency.uri"><code class="docutils literal notranslate"><span class="pre">GithubDependency.uri</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.dependency.GithubDependency.version_id"><code class="docutils literal notranslate"><span class="pre">GithubDependency.version_id</span></code></a></li>
 </ul>
@@ -595,6 +599,25 @@ as <code class="docutils literal notranslate"><span class="pre">pathlib.Path</sp
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ape.managers.compilers.CompilerManager.enrich_error">
+<span class="sig-name descname"><span class="pre">enrich_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="exceptions.html#ape.exceptions.ContractLogicError" title="ape.exceptions.ContractLogicError"><span class="pre">ContractLogicError</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="exceptions.html#ape.exceptions.ContractLogicError" title="ape.exceptions.ContractLogicError"><span class="pre">ContractLogicError</span></a></span></span><a class="headerlink" href="#ape.managers.compilers.CompilerManager.enrich_error" title="Permalink to this definition"></a></dt>
+<dd><p>Enrich a contract logic error using compiler information, such
+known PC locations for compiler runtime errors, such as math errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>err</strong> (<a class="reference internal" href="exceptions.html#ape.exceptions.ContractLogicError" title="ape.exceptions.ContractLogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContractLogicError</span></code></a>) – The exception
+to enrich.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The enriched exception.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#ape.exceptions.ContractLogicError" title="ape.exceptions.ContractLogicError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContractLogicError</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ape.managers.compilers.CompilerManager.get_imports">
 <span class="sig-name descname"><span class="pre">get_imports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contract_filepaths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ape.managers.compilers.CompilerManager.get_imports" title="Permalink to this definition"></a></dt>
 <dd><p>Combine import dicts from all compilers, where the key is a contract’s source_id
@@ -731,6 +754,35 @@ to compiler API classes.</p>
 <dt class="sig sig-object py" id="ape.managers.chain.AccountHistory.outgoing">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">outgoing</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="api.html#ape.api.transactions.ReceiptAPI" title="ape.api.transactions.ReceiptAPI"><span class="pre">ReceiptAPI</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ape.managers.chain.AccountHistory.outgoing" title="Permalink to this definition"></a></dt>
 <dd><p>All outgoing transactions, from earliest to latest.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ape.managers.chain.AccountHistory.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_nonce</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_nonce</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine_to_use</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#ape.managers.chain.AccountHistory.query" title="Permalink to this definition"></a></dt>
+<dd><p>A method for querying transactions made by an account and returning an Iterator.
+If you do not provide a starting nonce, the first transaction is assumed.
+If you do not provide a stopping block, the last transaction is assumed.
+You can pass <code class="docutils literal notranslate"><span class="pre">engine_to_use</span></code> to short-circuit engine selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#ape.exceptions.ChainError" title="ape.exceptions.ChainError"><strong>ChainError</strong></a> – When <code class="docutils literal notranslate"><span class="pre">stop_nonce</span></code> is greater
+    than the account’s current nonce.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>columns</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – columns in the DataFrame to return</p></li>
+<li><p><strong>start_nonce</strong> (<em>int</em>) – The first transaction, by nonce, to include in the
+query. Defaults to 0.</p></li>
+<li><p><strong>stop_nonce</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The last transaction, by nonce, to include
+in the query. Defaults to the latest transaction.</p></li>
+<li><p><strong>engine_to_use</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – query engine to use, bypasses query
+engine selection algorithm.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2383,7 +2435,7 @@ of this package.</p>
 
 <span class="target" id="module-ape.managers.project.dependency"></span><dl class="py class">
 <dt class="sig sig-object py" id="ape.managers.project.dependency.GithubDependency">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.managers.project.dependency.</span></span><span class="sig-name descname"><span class="pre">GithubDependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contracts_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'contracts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['package.json',</span> <span class="pre">'package-lock.json']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.managers.project.dependency.GithubDependency" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.managers.project.dependency.</span></span><span class="sig-name descname"><span class="pre">GithubDependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contracts_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'contracts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['package.json',</span> <span class="pre">'package-lock.json']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">github</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.managers.project.dependency.GithubDependency" title="Permalink to this definition"></a></dt>
 <dd><p>A dependency from Github. Use the <code class="docutils literal notranslate"><span class="pre">github</span></code> key in your <code class="docutils literal notranslate"><span class="pre">dependencies:</span></code>
 section of your <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code> file to declare a dependency from GitHub.</p>
 <p>Config example:</p>
@@ -2401,8 +2453,12 @@ section of your <code class="docutils literal notranslate"><span class="pre">ape
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ape.managers.project.dependency.GithubDependency.branch">
 <span class="sig-name descname"><span class="pre">branch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ape.managers.project.dependency.GithubDependency.branch" title="Permalink to this definition"></a></dt>
-<dd><p>The branch to use.</p>
-<p><strong>NOTE</strong>: Will be ignored if given a version.</p>
+<dd><p>Use <code class="docutils literal notranslate"><span class="pre">ref:</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>DEPRECATED</strong></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2426,6 +2482,13 @@ based on the project’s structure.</p>
 <span class="sig-name descname"><span class="pre">github</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ape.managers.project.dependency.GithubDependency.github" title="Permalink to this definition"></a></dt>
 <dd><p>The Github repo ID e.g. the organization name followed by the repo name,
 such as <code class="docutils literal notranslate"><span class="pre">dapphub/erc20</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ape.managers.project.dependency.GithubDependency.ref">
+<span class="sig-name descname"><span class="pre">ref</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ape.managers.project.dependency.GithubDependency.ref" title="Permalink to this definition"></a></dt>
+<dd><p>The branch or tag to use.</p>
+<p><strong>NOTE</strong>: Will be ignored if given a version.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -2666,6 +2729,8 @@ Allows for the query of blockchain data using connected provider.</p>
 <span class="sig-name descname"><span class="pre">estimate_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="api.html#ape.api.query.BlockTransactionQuery" title="ape.api.query.BlockTransactionQuery"><span class="pre">BlockTransactionQuery</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">estimate_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="api.html#ape.api.query.ContractEventQuery" title="ape.api.query.ContractEventQuery"><span class="pre">ContractEventQuery</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">estimate_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="api.html#ape.api.query.AccountTransactionQuery" title="ape.api.query.AccountTransactionQuery"><span class="pre">AccountTransactionQuery</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span></dt>
 <dd><p>Estimation of time needed to complete the query. The estimation is returned
 as an int representing milliseconds. A value of None indicates that the
 query engine is not available for use or is unable to complete the query.</p>
@@ -2691,6 +2756,8 @@ query engine is not available for use or is unable to complete the query.</p>
 <span class="sig-name descname"><span class="pre">perform_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="api.html#ape.api.query.BlockTransactionQuery" title="ape.api.query.BlockTransactionQuery"><span class="pre">BlockTransactionQuery</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="api.html#ape.api.transactions.TransactionAPI" title="ape.api.transactions.TransactionAPI"><span class="pre">TransactionAPI</span></a><span class="p"><span class="pre">]</span></span></span></span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">perform_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="api.html#ape.api.query.ContractEventQuery" title="ape.api.query.ContractEventQuery"><span class="pre">ContractEventQuery</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types.html#ape.types.ContractLog" title="ape.types.ContractLog"><span class="pre">ContractLog</span></a><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">perform_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="api.html#ape.api.query.AccountTransactionQuery" title="ape.api.query.AccountTransactionQuery"><span class="pre">AccountTransactionQuery</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="api.html#ape.api.transactions.ReceiptAPI" title="ape.api.transactions.ReceiptAPI"><span class="pre">ReceiptAPI</span></a><span class="p"><span class="pre">]</span></span></span></span></dt>
 <dd><p>Executes the query using best performing <code class="docutils literal notranslate"><span class="pre">estimate_query</span></code> query engine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

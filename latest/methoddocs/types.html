@@ -14,7 +14,8 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
@@ -66,7 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguides/installing_plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/projects.html">Developing Projects with Ape</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/compile.html">Compile</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguides/cache.html">Cache</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguides/data.html">Querying Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/developing_plugins.html">Developing Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/config.html">Configure Ape</a></li>
@@ -236,8 +237,8 @@ Is <cite>None</cite> when from the pending block.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
 <p>A message compatible with <a href="#id1"><span class="problematic" id="id2">EIP-191_</span></a> that is ready to be signed.</p>
 <p>The properties are components of an <a href="#id3"><span class="problematic" id="id4">EIP-191_</span></a> signable message. Other message formats
-can be encoded into this format for easy signing. This data structure doesn’t need to
-know about the original message format. For example, you can think of
+can be encoded into this format for easy signing. This data structure doesn’t need
+to know about the original message format. For example, you can think of
 EIP-712 as compiling down to an EIP-191 message.</p>
 <p>In typical usage, you should never need to create these by hand. Instead, use
 one of the available encode_* methods in this module, like:</p>
