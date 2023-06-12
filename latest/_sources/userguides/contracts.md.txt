@@ -50,6 +50,9 @@ contract = accounts.dev.deploy(project.MyContract, "argument1", "argument2")
 
 With this technique, you can feed as many constructor arguments as your contract constructor requires.
 
+**NOTE**: You can also publish the contract source code to an explorer upon deployment using the `publish=` kwarg on the deploy methods.
+More information on publishing contracts can be found in [this guide](./publishing.html).
+
 If you do not pass the correct amount of constructor arguments when deploying, you will get an error showing your arguments don't match what is in the ABI:
 
 ```bash
@@ -151,6 +154,20 @@ assert contract.get_static_list() == [1, 2, 3]
 receipt = contract.set_number(sender=dev)
 ```
 
+### Default, Fallback, and Direct Calls
+
+To directly call an address, such as invoking a contract's `fallback` or `receive` method, call a contract instance directly:
+
+```python
+from ape import Contract, accounts
+
+sender = accounts.load("dev")
+contract = Contract("0x123...")
+
+# Call the contract's fallback method.
+receipt = contract(sender=sender, gas=40000, data="0x123")
+```
+
 ## Decoding and Encoding Inputs
 
 If you want to separately decode and encode inputs without sending a transaction or making a call, you can achieve this with Ape.
@@ -168,7 +185,7 @@ In the example above, the bytes value returned contains the method ID selector p
 Alternatively, you can decode input:
 
 ```python
-from hexbytes import HexBytes
+from ethpm_types import HexBytes
 from ape import Contract
 
 contract = Contract("0x...")
